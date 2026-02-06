@@ -103,6 +103,14 @@ jobs:
    needs: security-check
 
    steps:
+     - uses: actions/checkout@v4
+
+     - name: JAVA
+       uses: actions/setup-java@v4
+       with:
+         java-version: '17'
+         distribution: 'temurin'
+         
      - name: Unit-Testing
        run: mvn test
        
