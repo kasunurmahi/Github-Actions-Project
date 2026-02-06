@@ -63,8 +63,19 @@ jobs:
    runs-on: self-hosted
    steps:
    # compile is imp -- .java to .class change and get .jar/.war files as artifacts
-     - name: Compile
+     - name: COMPILE
        uses: actions/checkout@v4
+
+     - name: JAVA JDK SETUP
+       uses: actions/set-up java@v4
+       with:
+         java-version: '17'
+         distribution: 'temurin'
+
+     - name: COMPILE-CODE
+       run: mvn compile
+
+       
 
 
        
