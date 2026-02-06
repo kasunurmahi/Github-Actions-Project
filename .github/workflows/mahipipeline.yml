@@ -62,8 +62,8 @@ jobs:
   # this is the runner which iam using ( self-hosted is the label )
    runs-on: self-hosted
    steps:
-   # compile is imp -- .java to .class change and get .jar/.war files as artifacts
-     - name: COMPILE
+   # this will create a local copy of source code inside the runner 
+     - name: GIT-CHECKOUT
        uses: actions/checkout@v4
 
      - name: JAVA JDK SETUP
@@ -71,9 +71,15 @@ jobs:
        with:
          java-version: '17'
          distribution: 'temurin'
+# compile is imp -- .java to .class change and get .jar/.war files as artifacts
+     - name: Installing MAVEN to COMPILE
+       run: |
+          sudo apt install maven -y
+          mvn compile
+          
 
-     - name: COMPILE-CODE
-       run: mvn compile
+
+       
 
        
 
