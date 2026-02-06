@@ -72,10 +72,13 @@ jobs:
          java-version: '17'
          distribution: 'temurin'
 # compile is imp -- .java to .class change and get .jar/.war files as artifacts
-     - name: Installing MAVEN to COMPILE
-       run: |
-          sudo apt install maven -y
-          mvn compile
+     - name: Installing MAVEN
+       run:  sudo apt install maven -y
+     - name: COMPILE SOURCE-CODE
+       run: mvn compile
+
+
+
           
 
 
