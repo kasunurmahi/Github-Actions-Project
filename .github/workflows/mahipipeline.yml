@@ -62,28 +62,39 @@ jobs:
   # this is the runner which iam using ( self-hosted is the label )
    runs-on: self-hosted
    steps:
+   
    # this will create a local copy of source code inside the runner 
      - name: GIT-CHECKOUT
+     # github actions are pre jobs to set up and do the things
        uses: actions/checkout@v4
 
      - name: JAVA JDK SETUP
        uses: actions/setup-java@v4
        with:
          java-version: '17'
+         # it will install jdk tools automatically without commands
          distribution: 'temurin'
-# compile is imp -- .java to .class change and get .jar/.war files as artifacts
+         
+#  for compiling we need maven 
      - name: Installing MAVEN
        run:  sudo apt install maven -y
+
+       # compile is imp -- .java to .class change and get .jar/.war files as artifacts
      - name: COMPILE SOURCE-CODE
        run: mvn compile
 
-       
+    # we are using 2nd taks so that clearly we can understand    
   security-check:
    runs-on: self-hosted
+   # this step is very important --- next by by it will run (1st compile after finish it will run next )
    needs: compile
+
    
    steps:
+   # trivy is the tool for scanning source code -- vul scanner for source code and images also 
      - name: Installing Trivy
+
+     # here | by using this we can write multiple commands to run
        run: |
          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
@@ -92,13 +103,16 @@ jobs:
          sudo apt-get install -y trivy
 
      - name: TRIVY-SCAN
+     # here trivy , fs - file system, we are asking into table format, saving output in .json ( txt ) we can 
        run: trivy fs --format table -o fs-report.json .
 
+# this is the tool to find the hard coded sensitve data to find in source code
      - name: GITLEAKS Install & SCAN
        run: |
          sudo apt install gitleaks -y
          gitleaks detect source . -r gitleaksmahi-report.json -f json
-  test:
+         
+  unit-test:
    runs-on: self-hosted
    needs: security-check
 
@@ -110,7 +124,9 @@ jobs:
        with:
          java-version: '17'
          distribution: 'temurin'
-         
+
+         # unti testing is imp to find the code bugs and we can improve the quality of code
+         # it verify each componet in the code and check the syntax and all
      - name: Unit-Testing
        run: mvn test
        
