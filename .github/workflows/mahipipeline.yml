@@ -1,54 +1,71 @@
+# name: SmallScreen
+# on:
+#  push:
+#    branches: 'feature-1'
+
+
+# jobs:
+#   compile:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     # this will create a local copy in the runner 
+#       - name: GITCHECK-MAHI
+#         uses: actions/checkout@v4
+#    # this is the java code we need to set java so that 
+#       - name: SETTING JAVA TO RUN THE CODE
+#         uses: actions/setup-java@v4
+#         with:
+#           java-version: '17'
+#           distribution: 'temurin'
+#   # this step will compile out code 
+#   # compile means -- .java to .class then we can get .jar / .war files 
+#       - name: COMPILE
+#         run: mvn compile
+
+        
+#   SecurityScan:
+#    runs-on: ubuntu-latest
+#    needs: compile
+
+#    steps:
+#      - name: Checkout- again
+#        uses: actions/checkout@v4
+# # if you use shared runner -- git ( public runner ) every time you need to use this install if own no need
+
+#      - name: Trivy install
+#        run: |
+#          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+#          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+#          echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+#          sudo apt-get update -y
+#          sudo apt-get install -y trivy
+
+#      - name: Trivy Scan
+#        run: trivy fs --format table -o fs-report.json .
+#   # this tell us if any hardcoded value is present in the source code-- sensitive data -- it will tell
+#      - name: Gitleaks install
+#        run: sudo apt install gitleaks -y
+
+#      - name: gitleak scan
+#        run: gitleaks detect source . -r firstgitleak.json -f json
+
+
 name: SmallScreen
 
 on:
  push:
    branches: 'feature-1'
 
-
 jobs:
   compile:
-    runs-on: ubuntu-latest
-
-    steps:
-    # this will create a local copy in the runner 
-      - name: GITCHECK-MAHI
-        uses: actions/checkout@v4
-   # this is the java code we need to set java so that 
-      - name: SETTING JAVA TO RUN THE CODE
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-  # this step will compile out code 
-  # compile means -- .java to .class then we can get .jar / .war files 
-      - name: COMPILE
-        run: mvn compile
-
-        
-  SecurityScan:
-   runs-on: ubuntu-latest
-   needs: compile
-
+  # this is the runner which iam using ( self-hosted is the label )
+   runs-on: self-hosted
    steps:
-     - name: Checkout- again
+   # compile is imp -- .java to .class change and get .jar/.war files as artifacts
+     - name: Compile
        uses: actions/checkout@v4
 
-     - name: Trivy install
-       run: |
-         sudo apt-get install -y wget apt-transport-https gnupg lsb-release
-         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-         echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-         sudo apt-get update -y
-         sudo apt-get install -y trivy
-
-     - name: Trivy Scan
-       run: trivy fs --format table -o fs-report.json .
-  # this tell us if any hardcoded value is present in the source code-- sensitive data -- it will tell
-     - name: Gitleaks install
-       run: sudo apt install gitleaks -y
-
-     - name: gitleak scan
-       run: gitleaks detect source . -r firstgitleak.json -f json
 
        
 
