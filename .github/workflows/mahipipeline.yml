@@ -1,1 +1,27 @@
+name: SmallScreen
 
+on:
+ push:
+   branches: 'feature-1'
+
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+    # this will create a local copy in the runner 
+      - name: GITCHECK-MAHI
+        uses: actions/checkout@v4
+   # this is the java code we need to set java so that 
+      - name: SETTING JAVA TO RUN THE CODE
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+  # this step will compile out code 
+  # compile means -- .java to .class then we can get .jar / .war files 
+      - name: COMPILE
+        run: mvn compile
+
+        
