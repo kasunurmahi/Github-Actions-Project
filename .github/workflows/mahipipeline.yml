@@ -25,3 +25,35 @@ jobs:
         run: mvn compile
 
         
+  SecurityScan:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout- again
+       uses: actions/checkout@v4
+
+     - name: Trivy install
+       run: |
+         sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+         echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+         sudo apt-get update -y
+         sudo apt-get install -y trivy
+
+     - name: Trivy Scan
+       run: trivy fs --format table -o fs-report.json
+  # this tell us if any hardcoded value is present in the source code-- sensitive data -- it will tell
+     - name: Gitleaks install
+       run: sudo apt install gitleaks -y
+
+     - name: gitleak scan
+       run: gitleaks detect source . -r firstgitleak.json -f json
+
+       
+
+       
+
+
+       
+
+        
