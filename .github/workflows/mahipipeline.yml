@@ -152,7 +152,7 @@ jobs:
          distribution: 'temurin'
          
      - name: Build Project
-       run: mvn test
+       run: mvn package
 
 
         
