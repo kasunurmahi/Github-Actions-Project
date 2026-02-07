@@ -144,7 +144,7 @@ jobs:
        run: mvn package
 # this step is very imp to see out artifacts after build , it will stores 
      - name: UPLOAD BUILD ARTIFACTS
-       uses: actions/upload-artifacts@v4
+       uses: actions/upload-artifact@v4
        with:
          name: java-jar
          path: target/*.jar
