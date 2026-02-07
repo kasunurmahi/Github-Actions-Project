@@ -146,9 +146,9 @@ jobs:
      - name: UPLOAD BUILD ARTIFACTS
        uses: actions/upload-artifact@v4
        with:
-         name: java-jar
+         name: app-jar
          path: target/*.jar
-
+# we can see the artifacts after pipeline success --- we can download it
 
 
   SONAR-SCAN:
@@ -166,6 +166,9 @@ jobs:
          sudo apt-get update 
          sudo apt-get install -y unzip
 # sonar-projec.properties --file is vey important here to run sonar bcz it contains project key and project name
+
+# scan -- bugs , code smells , finds dulplicate code, coverage, vul
+
      - name: SONAR-SCANNING
        uses: sonarsource/sonarqube-scan-action@master
        env:
@@ -176,6 +179,8 @@ jobs:
      #   env:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
+
+     # gates are like conditions code coverge >80 -fail , like that 
      
      - name: SONAR-GATES-CHECK
        id: sonarqube-quality-gate-check
@@ -193,6 +198,10 @@ jobs:
      #   env:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
+
+
+
+
 
 
 
