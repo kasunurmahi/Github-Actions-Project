@@ -155,8 +155,8 @@ jobs:
 
 
      - name: SonarQube-scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
+       uses: sonarsource/sonarqube-scan-action@master
+       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ vars.SONAR_URL }}
 
@@ -167,11 +167,11 @@ jobs:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
      - name: Sonar Quality check
-      id: sonarqube-quality-gate-check
-      uses: sonarsource/sonarqube-quality-gate-action@master
+       id: sonarqube-quality-gate-check
+       uses: sonarsource/sonarqube-quality-gate-action@master
       # force to fail
-      timeout-minutes: 5
-      env:
+       timeout-minutes: 5
+       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ vars.SONAR_URL }}
         
