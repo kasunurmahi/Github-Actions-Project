@@ -58,7 +58,7 @@ on:
    branches: 'feature-1'
 
 jobs:
-  compile:
+  COMPILE:
   # this is the runner which iam using ( self-hosted is the label )
    runs-on: self-hosted
    steps:
@@ -84,7 +84,7 @@ jobs:
        run: mvn compile
 
     # we are using 2nd taks so that clearly we can understand    
-  security-check:
+  SECURITY-TEST:
    runs-on: self-hosted
    # this step is very important --- next by by it will run (1st compile after finish it will run next )
    needs: compile
@@ -112,7 +112,7 @@ jobs:
          sudo apt install gitleaks -y
          gitleaks detect source . -r gitleaksmahi-report.json -f json
          
-  unit-test:
+  UNIT-TESTING:
    runs-on: self-hosted
    needs: security-check
 
