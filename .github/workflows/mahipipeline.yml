@@ -165,7 +165,7 @@ jobs:
 
          
      - name: SONAR-SCANNING
-       uses: SonarSource/sonarqube-scan-actions@v5.0.0
+       uses: SonarSource/sonarqube-scan-actions@v2
        env:
          SONAR-TOKEN: ${{ secrets.SONAR-TOKEN }}
          SONAR-URL: ${{ vars.SONAR_URL }}
@@ -173,9 +173,8 @@ jobs:
 
      - name: SONAR-GATTING
        id: sonarqube-quality-gate-check
-       uses: SonarSource/sonarqube-quality-gate-action@v5.0.0
-       with:
-         pollingTimeoutSec: 600
+       uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
+       timeout-minutes: 5
 
        env:
          SONAR-TOKEN: ${{ secrets.SONAR-TOKEN }}
