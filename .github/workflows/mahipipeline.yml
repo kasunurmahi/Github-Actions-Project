@@ -223,8 +223,8 @@ jobs:
       - name: DOCKER-HUB-LOGIN
         uses: docker/login-action@v3
         with:
-          dockerusername: ${{ vars.dockerusername }}
-          dockerpassword: ${{ secrets.dockerpassword }}
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
 
   DOCKER-BUILDING-IMAGE-AND-PUSHING:
@@ -242,6 +242,13 @@ jobs:
        with:
          push: true
          tags: kasunurmahi/smallscreen:latest
+
+
+  # DockerBuild-Push:
+  #  runs-on: self-hosted
+  #  needs: DOCKER-LOGIN
+  #  steps:
+  #    - name
 
          
 
