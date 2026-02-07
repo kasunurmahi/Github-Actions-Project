@@ -261,7 +261,7 @@ jobs:
 
       - name: Trivy Image scan
         run: |
-         trivy image --format table -o trivy-image-report.html kasunurmahi/smallscree:latest
+         trivy image --format table -o trivy-image-report.html kasunurmahi/preethi
 
       - name: Docker login
         uses: docker/login-action@v3
