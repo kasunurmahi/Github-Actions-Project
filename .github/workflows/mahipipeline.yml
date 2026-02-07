@@ -53,9 +53,9 @@
 
 name: SmallScreen
 
-# on:
-#  push:
-#    branches: 'feature-1'
+on:
+ push:
+   branches: 'feature-1'
 
 jobs:
   COMPILE:
@@ -216,62 +216,62 @@ jobs:
 # Docker we are creating image by Dockerfile -- build then push the deploy to eks
 
 
-  DOCKER-LOGIN:
-    runs-on: self-hosted
-    needs: DOWNLOAD-ARTIFACTS
-    steps:
-      - name: DOCKER-HUB-LOGIN
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+  # DOCKER-LOGIN:
+  #   runs-on: self-hosted
+  #   needs: DOWNLOAD-ARTIFACTS
+  #   steps:
+  #     - name: DOCKER-HUB-LOGIN
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ vars.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
 
 
-  DOCKER-BUILDING-IMAGE-AND-PUSHING:
-   runs-on: self-hosted
-   needs: DOCKER-LOGIN
-   steps:
-     - name: Set up QEMU
-       uses: docker/setup-qemu-action@v3
+  # DOCKER-BUILDING-IMAGE-AND-PUSHING:
+  #  runs-on: self-hosted
+  #  needs: DOCKER-LOGIN
+  #  steps:
+  #    - name: Set up QEMU
+  #      uses: docker/setup-qemu-action@v3
 
-     - name: Set up Docker BuildX
-       uses: docker/setup-buildx-action@v3
+  #    - name: Set up Docker BuildX
+  #      uses: docker/setup-buildx-action@v3
 
-     - name: Docker Build and Push
-       uses: docker/build-push-action@v6
-       with:
-         push: true
-         tags: kasunurmahi/smallscreen:latest
+  #    - name: Docker Build and Push
+  #      uses: docker/build-push-action@v6
+  #      with:
+  #        push: true
+  #        tags: kasunurmahi/smallscreen:latest
 
 
          
 # antoher method 
-  # DockerBuild-Push:
-  #  runs-on: self-hosted
-  #  needs: DOWNLOAD-ARTIFACTS
-  #  steps:
-  #     - name: set up QEMU
-  #       uses: docker/setup-qemu-action@v3
+  DockerBuild-Push:
+   runs-on: self-hosted
+   needs: DOWNLOAD-ARTIFACTS
+   steps:
+      - name: set up QEMU
+        uses: docker/setup-qemu-action@v3
         
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
-  #     - name: Build Docker Image
-  #       run: |
-  #        docker build -t kasunurmahi/FirstTRY:lat
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker Image
+        run: |
+         docker build -t kasunurmahi/SMALLSCREEN
 
-  #     - name: Trivy Image scan
-  #       run: |
-  #        trivy image --format table -o trivy-image-report.html kasunurmahi/smallscree:latest
+      # - name: Trivy Image scan
+      #   run: |
+      #    trivy image --format table -o trivy-image-report.html kasunurmahi/smallscree:latest
 
-  #     - name: Docker login
-  #       uses: docker/login-action@v3
-  #       with:
-  #        username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Docker login
+      #   uses: docker/login-action@v3
+      #   with:
+      #    username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #    password: ${{ secrets.DOCKERHUB_TOKEN }}
          
-  #     - name: Push the image 
-  #       run: |
-  #        docker push kasunurmahi/FirstTRY:lat
+      # - name: Push the image 
+      #   run: |
+      #    docker push kasunurmahi/FirstTRY:lat
 
          
 
