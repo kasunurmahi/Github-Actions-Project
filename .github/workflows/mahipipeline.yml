@@ -154,12 +154,12 @@ jobs:
          fetch-depth: 0
 
 # sonar packages is downloaded but unzip is imp to unzip the packages
+# we can do this in runner directly here also we can do it 
      - name: UNZIP
        run: |
          sudo apt-get update 
          sudo apt-get install -y unzip
-
-
+# sonar-projec.properties --file is vey important here to run sonar bcz it contains project key and project name
      - name: SONAR-SCANNING
        uses: sonarsource/sonarqube-scan-action@master
        env:
@@ -170,8 +170,6 @@ jobs:
      #   env:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
-
-
      
      - name: SONAR-GATES-CHECK
        id: sonarqube-quality-gate-check
