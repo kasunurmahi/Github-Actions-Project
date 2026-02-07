@@ -173,7 +173,7 @@ jobs:
 
      - name: SONAR-GATTING
        id: sonarqube-quality-gate-check
-       uses: sonarsource/sonarqube-quality-gate-action@master
+       uses: SonarSource/sonarqube-quality-gate-action@v5.0.0
        with:
          pollingTimeoutSec: 600
 
