@@ -153,20 +153,27 @@ jobs:
        with:
          fetch-depth: 0
 
+# sonar packages is downloaded but unzip is imp to unzip the packages
+     - name: UNZIP
+       run: |
+         sudo apt-get update 
+         sudo apt-get install -y unzip
 
-     - name: SonarQube-scan
+
+     - name: SONAR-SCANNING
        uses: sonarsource/sonarqube-scan-action@master
        env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ vars.SONAR_URL }}
-
-         
      # - name: SONAR-SCANNING
      #   uses: SonarSource/sonarqube-scan-actions@v2
      #   env:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
-     - name: Sonar Quality check
+
+
+     
+     - name: SONAR-GATES-CHECK
        id: sonarqube-quality-gate-check
        uses: sonarsource/sonarqube-quality-gate-action@master
       # force to fail
