@@ -155,6 +155,36 @@ jobs:
        run: mvn package
 
 
+  SONAR-SCAN:
+   runs-on: self-hosted
+   needs: BUILD-PROJECT
+   steps:
+     - uses: actions/checkout@v4
+       with:
+         fetch-depth: 0
+
+         
+     - name: SONAR-SCANNING
+       uses: SonarSource/sonarqube-scan-actions@v5.0.0
+       env:
+         SONAR-TOKEN: ${{ secrets.SONAR-TOKEN }}
+         SONAR-URL: ${{ vars.SONAR_URL }}
+
+
+     - name: SONAR-GATTING
+       id: sonarqube-quality-gate-check
+       uses: sonarsource/sonarqube-quality-gate-action@master
+       with:
+         pollingTimeoutSec: 600
+
+       env:
+         SONAR-TOKEN: ${{ secrets.SONAR-TOKEN }}
+         SONAR-URL: ${{ vars.SONAR_URL }}
+
+         
+         
+
+
         
 
        
