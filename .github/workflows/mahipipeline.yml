@@ -84,10 +84,10 @@ jobs:
        run: mvn compile
 
     # we are using 2nd taks so that clearly we can understand    
-  SECURITYTEST:
+  SECURITY-TEST:
    runs-on: self-hosted
    # this step is very important --- next by by it will run (1st compile after finish it will run next )
-   needs: compile
+   needs: COMPILE
 
    
    steps:
@@ -112,9 +112,9 @@ jobs:
          sudo apt install gitleaks -y
          gitleaks detect source . -r gitleaksmahi-report.json -f json
          
-  UNITTESTING:
+  UNIT-TESTING:
    runs-on: self-hosted
-   needs: security-check
+   needs: SECURITY-TEST
 
    steps:
      - uses: actions/checkout@v4
