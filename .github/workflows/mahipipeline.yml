@@ -142,6 +142,12 @@ jobs:
          distribution: 'temurin'
      - name: Build Project
        run: mvn package
+# this step is very imp to see out artifacts after build , it will stores 
+     - name: UPLOAD BUILD ARTIFACTS
+       uses: actions/upload-artifacts@v4
+       with:
+         name: java-jar
+         path: target/*.jar
 
 
 
@@ -187,6 +193,11 @@ jobs:
      #   env:
      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      #     SONAR-URL: ${{ vars.SONAR_URL }}
+
+
+
+
+    
 
      
 
