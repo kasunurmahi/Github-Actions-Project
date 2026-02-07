@@ -201,6 +201,21 @@ jobs:
 
 
 
+  DOWNLOAD-ARTIFACTS:
+   runs-on: self-hosted
+   needs: SONAR-SCAN
+   steps:
+     - uses: actions/checkout@v4
+     - name: Downloading-Artifacts
+       uses: actions/download-artifact@v4
+       with:
+         name: app-jar
+         path: app
+
+         
+
+
+
 
 
 
