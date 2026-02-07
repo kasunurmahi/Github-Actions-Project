@@ -257,7 +257,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build Docker Image
         run: |
-         docker build -t kasunurmahi/SMALLSCREEN .
+         docker build -t kasunurmahi/preethi .
 
       # - name: Trivy Image scan
       #   run: |
