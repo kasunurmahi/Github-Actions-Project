@@ -144,6 +144,13 @@ jobs:
    runs-on: self-hosted
    needs: UNIT-TESTING
    steps:
+     - uses: actions/checkout@v4
+     - name: Setup jdk
+       uses: actions/setup-java@4
+       with:
+         java-version: '17'
+         distribution: 'temurin'
+         
      - name: Build Project
        run: mvn test
 
