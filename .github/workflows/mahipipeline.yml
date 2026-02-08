@@ -273,12 +273,7 @@ jobs:
         run: |
          docker push kasunurmahi/preethi:latest
 
-         
-
-          
-
-         
-
+     
 
 
 
